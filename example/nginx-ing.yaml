@@ -1,0 +1,12 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: nginx.minikube.dev
+spec:
+  rules:
+  - host: nginx.minikube.dev
+    http:
+      paths:
+      - backend:
+          serviceName: nginx
+          servicePort: 80

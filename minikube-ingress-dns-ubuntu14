@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -e
+
+MINIKUBE_INGRESS_DNS_DOMAIN=${MINIKUBE_INGRESS_DNS_DOMAIN:-minikube.dev}
+
+minikube "$@"
+
+if [[ "$1" == "start" ]]; then
+  ip="$(minikube ip)"
+  echo "The IP address of running a cluster: ${ip}"
+
+  config="address=/${MINIKUBE_INGRESS_DNS_DOMAIN}/${ip}"
+  config_file="/etc/NetworkManager/dnsmasq.d/minikube.conf"
+  if [[ "$config" != "$(cat $config_file 2>/dev/null)" ]]; then
+    echo "Configuring dnsmasq for ${MINIKUBE_INGRESS_DNS_DOMAIN}..."
+    sudo bash -c "echo $config > $config_file"
+
+    echo "Restarting dnsmasq..."
+    sudo restart network-manager
+  fi
+
+  dig +noall +answer "${MINIKUBE_INGRESS_DNS_DOMAIN}"
+fi
+# vim: ft=sh ts=2 sts=2 sw=2
