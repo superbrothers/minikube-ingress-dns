@@ -18,13 +18,13 @@ Choose the script file for your environment.
 
 ```sh
 # macOS
-alias minikube=/path/to/minikube-ingress-dns/minikube-ingress-dns/minikube-ingress-dns-macos
+alias minikube=/path/to/minikube-ingress-dns/minikube-ingress-dns-macos
 
 # Ubuntu 16.04 LTS
-alias minikube=/path/to/minikube-ingress-dns/minikube-ingress-dns/minikube-ingress-dns-ubuntu16
+alias minikube=/path/to/minikube-ingress-dns/minikube-ingress-dns-ubuntu16
 
 # Ubuntu 14.04 LTS
-alias minikube=/path/to/minikube-ingress-dns/minikube-ingress-dns/minikube-ingress-dns-ubuntu14
+alias minikube=/path/to/minikube-ingress-dns/minikube-ingress-dns-ubuntu14
 ```
 
 The default base domain for Ingress LB is `minikube.dev`. For example, if you create an ingress object like the following, you can access http://nginx.minikube.dev/ directly with curl, browser or something.
