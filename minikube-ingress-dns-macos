@@ -15,8 +15,11 @@ if [[ "$1" == "start" ]]; then
   ip="$(minikube ip)"
   echo "The IP address of running a cluster: ${ip}"
 
-  config="address=/${MINIKUBE_INGRESS_DNS_DOMAIN}/${ip}
-except-interface=${ip}""
+  config="$(cat <<EOL
+address=/${MINIKUBE_INGRESS_DNS_DOMAIN}/${ip}
+except-interface=${ip}
+EOL
+)"
   config_file="/usr/local/etc/dnsmasq.conf"
 
   if [[ "$config" != "$(cat $config_file 2>/dev/null)" ]]; then
