@@ -1,41 +1,43 @@
 #!/usr/bin/env bash
 
+# minikube-ingress-dns-macos
 # Copyright (c) 2017 Kazuki Suda <kazuki.suda@gmail.com>
 #
 # This software is released under the MIT License.
 # http://opensource.org/licenses/mit-license.php
 
 set -e
+set -o pipefail
 
-MINIKUBE_INGRESS_DNS_DOMAIN=${MINIKUBE_INGRESS_DNS_DOMAIN:-minikube.dev}
+command minikube $@
 
-minikube "$@"
+[[ -n "$DEBUG" ]] && set -x
 
-if [[ "$1" == "start" ]]; then
-  ip="$(minikube ip)"
-  echo "The IP address of running a cluster: ${ip}"
+[[ "$1" != "start" ]] && exit
 
-  config="$(cat <<EOL
-bind-interfaces
-listen-address=127.0.0.1
-address=/${MINIKUBE_INGRESS_DNS_DOMAIN}/${ip}
-EOL
-)"
-  config_file="/usr/local/etc/dnsmasq.conf"
+source $(dirname $0)/common.sh
 
-  if [[ "$config" != "$(cat $config_file 2>/dev/null)" ]]; then
-    echo "Configuring dnsmasq for ${MINIKUBE_INGRESS_DNS_DOMAIN}..."
-    echo "$config" > "$config_file"
+# The file path of dnsmasq.conf
+dnsmasq_config_file=/usr/local/etc/dnsmasq.conf
+write_to_dnsmasq_config_file() {
+  cat > $dnsmasq_config_file
+}
 
-    echo "Restarting dnsmasq..."
-    sudo brew services restart dnsmasq
-  fi
+# The way of restarting dnsmasq in this environment
+restart_dnsmasq() {
+  sudo brew services restart dnsmasq
+}
 
-  if [[ ! -f "/etc/resolver/${MINIKUBE_INGRESS_DNS_DOMAIN}" ]]; then
-    sudo mkdir -p /etc/resolver/
-    sudo bash -c "echo 'nameserver 127.0.0.1' > /etc/resolver/${MINIKUBE_INGRESS_DNS_DOMAIN}"
-  fi
+# Setup dnsmasq for ingress lb in minikube
+minikube_ingress_dns
 
-  dig +noall +answer "${MINIKUBE_INGRESS_DNS_DOMAIN}"
+# To configure additional resolvers for minikube ingress dns domain
+if [[ ! -f "/etc/resolver/${MINIKUBE_INGRESS_DNS_DOMAIN}" ]]; then
+  echoinfo "Configure the additional resolver for ${MINIKUBE_INGRESS_DNS_DOMAIN}"
+  exe sudo mkdir -p /etc/resolver/
+
+  tmpfile=$(mktemp)
+  echo "nameserver 127.0.0.1" > $tmpfile
+  exe sudo mv $tmpfile /etc/resolver/${MINIKUBE_INGRESS_DNS_DOMAIN}
 fi
 # vim: ft=sh ts=2 sts=2 sw=2

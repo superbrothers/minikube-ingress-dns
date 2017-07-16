@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+source $(dirname $0)/common.sh
+
+set -x
+
+sudo rm /etc/NetworkManager/dnsmasq.d/minikube.conf
+# vim: ft=sh ts=2 sts=2 sw=2
