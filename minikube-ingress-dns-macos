@@ -15,7 +15,8 @@ if [[ "$1" == "start" ]]; then
   ip="$(minikube ip)"
   echo "The IP address of running a cluster: ${ip}"
 
-  config="address=/${MINIKUBE_INGRESS_DNS_DOMAIN}/${ip}"
+  config="address=/${MINIKUBE_INGRESS_DNS_DOMAIN}/${ip}
+except-interface=${ip}""
   config_file="/usr/local/etc/dnsmasq.conf"
 
   if [[ "$config" != "$(cat $config_file 2>/dev/null)" ]]; then
@@ -23,7 +24,7 @@ if [[ "$1" == "start" ]]; then
     echo "$config" > "$config_file"
 
     echo "Restarting dnsmasq..."
-    sudo brew services start dnsmasq
+    sudo brew services restart dnsmasq
   fi
 
   if [[ ! -f "/etc/resolver/${MINIKUBE_INGRESS_DNS_DOMAIN}" ]]; then
