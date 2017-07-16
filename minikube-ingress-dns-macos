@@ -16,8 +16,9 @@ if [[ "$1" == "start" ]]; then
   echo "The IP address of running a cluster: ${ip}"
 
   config="$(cat <<EOL
+bind-interfaces
+listen-address=127.0.0.1
 address=/${MINIKUBE_INGRESS_DNS_DOMAIN}/${ip}
-except-interface=${ip}
 EOL
 )"
   config_file="/usr/local/etc/dnsmasq.conf"
