@@ -51,7 +51,7 @@ EOL
 $ curl http://nginx.minikube.dev/
 ```
 
-If you'd like to change the base domain from `minikube.dev`, set the new domain name to the `MINIKUBE_INGRESS_DNS_DOMAIN` enironment variable.
+If you'd like to change the base domain from `minikube.dev`, set the new domain name to the `MINIKUBE_INGRESS_DNS_DOMAIN` environment variable.
 
 ```sh
 export MINIKUBE_INGRESS_DNS_DOMAIN="minikube.local"
