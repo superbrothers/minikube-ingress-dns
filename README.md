@@ -7,7 +7,7 @@ This repository contains the script files in order to configure and restart dnsm
 You can install minikube-ingress-dns with homebrew as follows:
 
 ```
-$ brew tap superbrothers/minikube-ingress-dns
+$ brew tap superbrothers/minikube-ingress-dns git://github.com/superbrothers/minikube-ingress-dns.git
 $ brew install minikube-ingress-dns
 ```
 
