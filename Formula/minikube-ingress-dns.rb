@@ -14,7 +14,7 @@ class MinikubeIngressDns < Formula
     )
   end
 
-  def caveats; <<-EOS.undent
+  def caveats; <<~EOS
     Add the following line to your ~/.bash_profile:
     # macOS
     alias minikube=#{etc}/minikube-ingress-dns/minikube-ingress-dns-macos
