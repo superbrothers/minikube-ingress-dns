@@ -1,7 +1,7 @@
 class MinikubeIngressDns < Formula
   desc "Configure and restart dnsmasq automatically for Kubernetes Ingress LB on minikube"
   homepage "https://github.com/superbrothers/minikube-ingress-dns"
-  version "v1.0.0"
+  version "v1.0.1"
   url "https://github.com/superbrothers/minikube-ingress-dns.git", tag: version
   head "https://github.com/superbrothers/minikube-ingress-dns.git", branch: "master"
 

@@ -13,6 +13,18 @@ command minikube $@
 
 [[ -n "$DEBUG" ]] && set -x
 
+if [[ "$1" == "stop" ]]; then
+	brew services stop dnsmasq
+	exit
+fi
+
+if [[ "$1" == "delete" ]]; then
+	brew services stop dnsmasq
+	$(dirname $0)/clean_macos
+	exit
+fi
+
+
 [[ "$1" != "start" ]] && exit
 
 source $(dirname $0)/common.sh
@@ -25,11 +37,9 @@ write_to_dnsmasq_config_file() {
 
 # The way of restarting dnsmasq in this environment
 restart_dnsmasq() {
-  sudo brew services restart dnsmasq
+  brew services restart dnsmasq
 }
 
-# Setup dnsmasq for ingress lb in minikube
-minikube_ingress_dns
 
 # To configure additional resolvers for minikube ingress dns domain
 if [[ ! -f "/etc/resolver/${MINIKUBE_INGRESS_DNS_DOMAIN}" ]]; then
@@ -38,6 +48,11 @@ if [[ ! -f "/etc/resolver/${MINIKUBE_INGRESS_DNS_DOMAIN}" ]]; then
 
   tmpfile=$(mktemp)
   echo "nameserver 127.0.0.1" > $tmpfile
+  echo "port 5354" >> $tmpfile
   exe sudo mv $tmpfile /etc/resolver/${MINIKUBE_INGRESS_DNS_DOMAIN}
 fi
+
+# Setup dnsmasq for ingress lb in minikube
+minikube_ingress_dns
+
 # vim: ft=sh ts=2 sts=2 sw=2
