@@ -2,8 +2,8 @@ class MinikubeIngressDns < Formula
   desc "Configure and restart dnsmasq automatically for Kubernetes Ingress LB on minikube"
   homepage "https://github.com/superbrothers/minikube-ingress-dns"
   version "v1.0.1"
-  url "https://github.com/superbrothers/minikube-ingress-dns.git", tag: version
-  head "https://github.com/superbrothers/minikube-ingress-dns.git", branch: "master"
+  url "https://github.com/orefalo/minikube-ingress-dns.git", tag: version
+  head "https://github.com/orefalo/minikube-ingress-dns.git", branch: "master"
 
   def install
     (prefix/"etc/minikube-ingress-dns").install %w(
