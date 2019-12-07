@@ -2,19 +2,21 @@
 
 This repository contains the script files in order to configure and restart dnsmasq automatically for Kubernetes Ingress LB on minikube after running `minikube start`. For more details, see [this article](http://qiita.com/superbrothers/items/13d8ce012ef23e22cb74) (In Japanese).
 
+This version is a fork from the original. On OSX catalina, minikube+dnsmasq and not playing well together when dealing with port 53. This version alters the port to 5354 and runs dnsmasq as a non root process.
+
 ## Installation
 
 You can install minikube-ingress-dns with homebrew as follows:
 
 ```
-$ brew tap superbrothers/minikube-ingress-dns git://github.com/superbrothers/minikube-ingress-dns.git
+$ brew tap orefalo/minikube-ingress-dns git://github.com/orefalo/minikube-ingress-dns.git
 $ brew install minikube-ingress-dns
 ```
 
 Otherwise you just clone this repository to install:
 
 ```
-$ git clone https://github.com/superbrothers/minikube-ingress-dns.git /path/to/minikube-ingress-dns
+$ git clone https://github.com/orefalo/minikube-ingress-dns.git /path/to/minikube-ingress-dns
 ```
 
 ## Requirement
