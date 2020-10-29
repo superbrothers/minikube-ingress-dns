@@ -47,7 +47,7 @@ The default base domain for Ingress LB is `minikube.local`. For example, if you 
 ```
 $ minikube start
 $ minikube addons enable ingress
-$ kubectl run nginx --image=nginx
+$ kubectl create deployment nginx --image=nginx
 $ kubectl expose deploy nginx --port=80 --target-port=80
 $ cat <<EOL | kubectl apply -f -
 apiVersion: extensions/v1beta1
