@@ -1,10 +1,10 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: nginx.minikube.dev
+  name: nginx.minikube.local
 spec:
   rules:
-  - host: nginx.minikube.dev
+  - host: nginx.minikube.local
     http:
       paths:
       - backend:
