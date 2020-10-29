@@ -59,9 +59,13 @@ spec:
   - host: nginx.minikube.local
     http:
       paths:
-      - backend:
-          serviceName: nginx
-          servicePort: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx
+            port:
+              number: 80
 EOL
 $ curl http://nginx.minikube.local/
 ```
