@@ -5,7 +5,7 @@
 # This software is released under the MIT License.
 # http://opensource.org/licenses/mit-license.php
 
-MINIKUBE_INGRESS_DNS_DOMAIN=${MINIKUBE_INGRESS_DNS_DOMAIN:-minikube.dev}
+MINIKUBE_INGRESS_DNS_DOMAIN=${MINIKUBE_INGRESS_DNS_DOMAIN:-minikube.local}
 
 minikube_ingress_dns() {
   if [[ -z "$dnsmasq_config_file" ]]; then

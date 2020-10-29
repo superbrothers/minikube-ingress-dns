@@ -42,7 +42,7 @@ alias minikube=/path/to/minikube-ingress-dns/minikube-ingress-dns-ubuntu16
 alias minikube=/path/to/minikube-ingress-dns/minikube-ingress-dns-ubuntu14
 ```
 
-The default base domain for Ingress LB is `minikube.dev`. For example, if you create an ingress object like the following, you can access http://nginx.minikube.dev/ directly with curl, browser or something.
+The default base domain for Ingress LB is `minikube.local`. For example, if you create an ingress object like the following, you can access http://nginx.minikube.local/ directly with curl, browser or something.
 
 ```
 $ minikube start
@@ -53,20 +53,20 @@ $ cat <<EOL | kubectl apply -f -
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: nginx.minikube.dev
+  name: nginx.minikube.local
 spec:
   rules:
-  - host: nginx.minikube.dev
+  - host: nginx.minikube.local
     http:
       paths:
       - backend:
           serviceName: nginx
           servicePort: 80
 EOL
-$ curl http://nginx.minikube.dev/
+$ curl http://nginx.minikube.local/
 ```
 
-If you'd like to change the base domain from `minikube.dev`, set the new domain name to the `MINIKUBE_INGRESS_DNS_DOMAIN` environment variable.
+If you'd like to change the base domain from `minikube.local`, set the new domain name to the `MINIKUBE_INGRESS_DNS_DOMAIN` environment variable.
 
 ```sh
 export MINIKUBE_INGRESS_DNS_DOMAIN="minikube.local"
