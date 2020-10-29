@@ -50,7 +50,7 @@ $ minikube addons enable ingress
 $ kubectl create deployment nginx --image=nginx
 $ kubectl expose deploy nginx --port=80 --target-port=80
 $ cat <<EOL | kubectl apply -f -
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: nginx.minikube.local
