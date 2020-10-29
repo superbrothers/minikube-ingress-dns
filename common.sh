@@ -31,6 +31,7 @@ minikube_ingress_dns() {
   local dnsmasq_config="$(cat <<EOL
 bind-interfaces
 listen-address=127.0.0.1
+port=5354
 address=/${MINIKUBE_INGRESS_DNS_DOMAIN}/${ip}
 EOL
 )"
@@ -43,7 +44,7 @@ EOL
     exe restart_dnsmasq
   fi
 
-  exe dig +noall +answer "${MINIKUBE_INGRESS_DNS_DOMAIN}" @127.0.0.1
+  exe dig +noall +answer "${MINIKUBE_INGRESS_DNS_DOMAIN}" @127.0.0.1 -p 5354
 }
 
 exe() {
